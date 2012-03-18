@@ -1,0 +1,7 @@
+bin/*
+!bin/data
+bin/data/GUI/guiSettings.xml
+build/*
+*.pbxuser
+*.mode1v3
+xcuserdata
