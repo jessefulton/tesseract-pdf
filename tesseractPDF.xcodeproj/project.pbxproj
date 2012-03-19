@@ -12,6 +12,8 @@
 		BC5B91801515B2BB003E3919 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC5B917A1515B2BB003E3919 /* tinyxmlerror.cpp */; };
 		BC5B91811515B2BB003E3919 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC5B917B1515B2BB003E3919 /* tinyxmlparser.cpp */; };
 		BC5B91821515B2BB003E3919 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC5B917D1515B2BB003E3919 /* ofxXmlSettings.cpp */; };
+		BCC701321517928C005F0712 /* libtesseract_full_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC701261517928B005F0712 /* libtesseract_full_i386.a */; };
+		BCC701331517928C005F0712 /* ofxTesseract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCC701291517928B005F0712 /* ofxTesseract.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -98,6 +100,11 @@
 		BC5B917B1515B2BB003E3919 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		BC5B917D1515B2BB003E3919 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		BC5B917E1515B2BB003E3919 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
+		BCC701221517928B005F0712 /* baseapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = baseapi.h; sourceTree = "<group>"; };
+		BCC701231517928B005F0712 /* thresholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thresholder.h; sourceTree = "<group>"; };
+		BCC701261517928B005F0712 /* libtesseract_full_i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_full_i386.a; sourceTree = "<group>"; };
+		BCC701291517928B005F0712 /* ofxTesseract.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTesseract.cpp; sourceTree = "<group>"; };
+		BCC7012A1517928B005F0712 /* ofxTesseract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTesseract.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -139,6 +146,7 @@
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
+				BCC701321517928C005F0712 /* libtesseract_full_i386.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +156,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				BCC7010B1517928B005F0712 /* ofxTesseract */,
 				BC5B91751515B2BB003E3919 /* ofxXmlSettings */,
 				BC5B90211515B27B003E3919 /* ofxUI */,
 			);
@@ -253,6 +262,51 @@
 			children = (
 				BC5B917D1515B2BB003E3919 /* ofxXmlSettings.cpp */,
 				BC5B917E1515B2BB003E3919 /* ofxXmlSettings.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		BCC7010B1517928B005F0712 /* ofxTesseract */ = {
+			isa = PBXGroup;
+			children = (
+				BCC701211517928B005F0712 /* include */,
+				BCC701241517928B005F0712 /* lib */,
+				BCC701281517928B005F0712 /* src */,
+			);
+			name = ofxTesseract;
+			path = ../../../addons/ofxTesseract;
+			sourceTree = "<group>";
+		};
+		BCC701211517928B005F0712 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				BCC701221517928B005F0712 /* baseapi.h */,
+				BCC701231517928B005F0712 /* thresholder.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		BCC701241517928B005F0712 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				BCC701251517928B005F0712 /* osx */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		BCC701251517928B005F0712 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				BCC701261517928B005F0712 /* libtesseract_full_i386.a */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		BCC701281517928B005F0712 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				BCC701291517928B005F0712 /* ofxTesseract.cpp */,
+				BCC7012A1517928B005F0712 /* ofxTesseract.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -396,6 +450,7 @@
 				BC5B91801515B2BB003E3919 /* tinyxmlerror.cpp in Sources */,
 				BC5B91811515B2BB003E3919 /* tinyxmlparser.cpp in Sources */,
 				BC5B91821515B2BB003E3919 /* ofxXmlSettings.cpp in Sources */,
+				BCC701331517928C005F0712 /* ofxTesseract.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,7 +601,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxTesseract/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = tesseractPDFDebug;
 				WRAPPER_EXTENSION = app;
@@ -632,7 +689,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxTesseract/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = tesseractPDF;
 				WRAPPER_EXTENSION = app;

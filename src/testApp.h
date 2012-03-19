@@ -1,7 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxTesseract.h"
 #include "ofxUI.h"
+
 
 class testApp : public ofBaseApp{
 	
@@ -28,4 +30,12 @@ class testApp : public ofBaseApp{
     
         int x,y;
 		
+    
+    
+        void runOcr(float scale, int medianSize);
+        
+        ofxTesseract tess;
+        ofImage img, scaled;
+        string ocrResult;
+
 };
