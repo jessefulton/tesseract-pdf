@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxTesseract.h"
 #include "ofxUI.h"
-//#include "CvUtils.h"
+#include "CvUtils.h"
 
 class testApp : public ofBaseApp{
 	

@@ -20,9 +20,9 @@ void testApp::setup() {
     scaled = ofImage(mov.getPixelsRef());
     
     scale = 1.0;
-    medianSize = 0.0;
+    medianSize = 1;
     
-    printf("total frames %i", mov.getTotalNumFrames());
+    printf("total frames %i\n", mov.getTotalNumFrames());
     
     //ofSetBackgroundAuto(false);
     ofSetFrameRate(30);
@@ -150,7 +150,9 @@ void testApp::guiEvent(ofxUIEventArgs &e) {
     else if (e.widget->getName() == "BLUR_AMT") {
         ofxUISlider *slider = (ofxUISlider *) e.widget;
         //todo: int?
-        medianSize = slider->getScaledValue();
+        medianSize = (int)slider->getScaledValue();
+        cout << medianSize;
+        preprocessImage();
     }
     else if (e.widget->getName() == "RUN_OCR") {
         runOcr();
@@ -167,7 +169,7 @@ void testApp::loadFrameToImage() {
 void testApp::preprocessImage() {
     scaled = img;
     scaled.resize(img.getWidth() * scale, img.getHeight() * scale);
-	//medianBlur(scaled, medianSize);
+    cv::medianBlur(scaled, medianSize);
 }
 
 // depending on the source of the text you want to OCR,
