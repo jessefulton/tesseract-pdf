@@ -14,21 +14,27 @@ void testApp::setup() {
     mov.setSpeed(0.1);
     mov.play();
     mov.setPaused(true);
+    mov.setFrame(0);
+    
+    img = ofImage(mov.getPixelsRef());
+    scaled = ofImage(mov.getPixelsRef());
+    
+    scale = 1.0;
+    medianSize = 0.0;
     
     printf("total frames %i", mov.getTotalNumFrames());
     
     //ofSetBackgroundAuto(false);
     ofSetFrameRate(30);
-    x = 0;
-    y = 0;
     
     int totalPages = mov.getTotalNumFrames();
     
     gui = new ofxUICanvas(0,0,320,320);		//ofxUICanvas(float x, float y, float width, float height)		
     gui->addWidgetDown(new ofxUILabel("PDF OCR", OFX_UI_FONT_LARGE)); 
-    //gui->addWidgetDown(new ofxUISlider(304,16,0.0,255.0,100.0,"BACKGROUND VALUE")); 
-    gui->addWidgetDown(new ofxUISlider(304,32,0,totalPages,100,"FRAME")); 
+    gui->addWidgetDown(new ofxUISlider(304,32,0,totalPages,0,"FRAME"));
     gui->addWidgetDown(new ofxUIButton(64, 64, false, "RUN_OCR"));  
+    gui->addWidgetDown(new ofxUISlider(304,32,0,10,1.0,"SCALE_AMT"));
+    gui->addWidgetDown(new ofxUISlider(304,32,1,100,1.0,"BLUR_AMT")); 
     ofAddListener(gui->newGUIEvent, this, &testApp::guiEvent); 
     gui->loadSettings("GUI/guiSettings.xml"); 
     
@@ -52,22 +58,15 @@ void testApp::update() {
 
 //--------------------------------------------------------------
 void testApp::draw() {
-	mov.draw(150,0);
     
     if (mov.isFrameNew()) {
-        x = x + mov.getWidth();
-        
-        if (x>ofGetWidth()) {
-            x = 0;
-            y = y + mov.getHeight();
-        }
-        
-        if (y>ofGetHeight()) {
-            x = 0;
-            y = 0;
-        }
+        //img = ofImage(mov.getPixelsRef());
+        loadFrameToImage();
+        preprocessImage();
     }
-    
+
+    scaled.draw(150,0);
+
     
     
     /*
@@ -143,31 +142,42 @@ void testApp::guiEvent(ofxUIEventArgs &e) {
         int frame = (int)slider->getScaledValue();
         mov.setFrame(frame);
     }
+    else if (e.widget->getName() == "SCALE_AMT") {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        scale = slider->getScaledValue();
+        preprocessImage();
+    }
+    else if (e.widget->getName() == "BLUR_AMT") {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        //todo: int?
+        medianSize = slider->getScaledValue();
+    }
     else if (e.widget->getName() == "RUN_OCR") {
-        runOcr(1.0, 0);
+        runOcr();
     }
 }
 
+void testApp::loadFrameToImage() {
+    img = ofImage(mov.getPixelsRef());
+	img.setImageType(OF_IMAGE_GRAYSCALE);
+	img.update();
+    
+}
 
+void testApp::preprocessImage() {
+    scaled = img;
+    scaled.resize(img.getWidth() * scale, img.getHeight() * scale);
+	//medianBlur(scaled, medianSize);
+}
 
 // depending on the source of the text you want to OCR,
 // you might need to preprocess it. here i'm doing a
 // simple resize followed by a median blur.
-void testApp::runOcr(float scale, int medianSize) {
-	//scaled = img;
-	
-    ofPixels pix = mov.getPixelsRef();
-    ofImage img = ofImage(pix);
-	img.setImageType(OF_IMAGE_GRAYSCALE);
-	img.update();
-
-    
-	// resize and median blur the image
-	//scaled.resize(img.getWidth() * scale, img.getHeight() * scale);
-	//medianBlur(scaled, medianSize);
-    
+void testApp::runOcr() {
+	loadFrameToImage();
+    preprocessImage();
 	//return tess.findText(scaled);
-	ocrResult = tess.findText(img);
+	ocrResult = tess.findText(scaled);
     cout << ocrResult;
     //return ocrResult;
 }

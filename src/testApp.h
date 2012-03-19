@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxTesseract.h"
 #include "ofxUI.h"
-
+//#include "CvUtils.h"
 
 class testApp : public ofBaseApp{
 	
@@ -22,17 +22,18 @@ class testApp : public ofBaseApp{
         void windowResized( int w, int h );
     
     
+        float scale;
+        int medianSize;
+    
         void exit(); 
         void guiEvent(ofxUIEventArgs &e);
     
         ofVideoPlayer mov;
         ofxUICanvas *gui;
-    
-        int x,y;
-		
-    
-    
-        void runOcr(float scale, int medianSize);
+
+        void loadFrameToImage();
+        void preprocessImage();
+        void runOcr();
         
         ofxTesseract tess;
         ofImage img, scaled;
