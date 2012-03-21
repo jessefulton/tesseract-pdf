@@ -5,6 +5,7 @@
 void testApp::setup() {
     
 	tess.setup();
+    tess.setInputName(""); //("tessdata/eng.traineddata");
 	tess.setWhitelist("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,");
 	tess.setAccuracy(ofxTesseract::ACCURATE);
 	tess.setMode(ofxTesseract::AUTO);
@@ -112,6 +113,47 @@ void testApp::preprocessImage() {
 void testApp::runOcr() {
 	loadFrameToImage();
     preprocessImage();
-	ocrResult = tess.findText(scaled);
+	ocrResult = tess.findHOCRText(scaled);
     cout << ocrResult;
+}
+
+
+
+
+
+
+
+//--------------------------------------------------------------
+void testApp::keyPressed  (int key){ 
+    
+}
+
+//--------------------------------------------------------------
+void testApp::keyReleased(int key){ 
+    
+}
+
+//--------------------------------------------------------------
+void testApp::mouseMoved(int x, int y ){
+    
+}
+
+//--------------------------------------------------------------
+void testApp::mouseDragged(int x, int y, int button){
+    
+}
+
+//--------------------------------------------------------------
+void testApp::mousePressed(int x, int y, int button){
+    
+}
+
+//--------------------------------------------------------------
+void testApp::mouseReleased(int x, int y, int button){
+    
+}
+
+//--------------------------------------------------------------
+void testApp::windowResized(int w, int h){
+    
 }
